@@ -2,15 +2,12 @@ package com.example.flowmart
 
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.flowmart.data.SharedPreferenceManager
 import com.example.flowmart.data.api.APIClient
+import com.example.flowmart.data.models.User
 import com.example.flowmart.databinding.ActivityLoginBinding
 import com.example.flowmart.utils.LoadingDialog
 import org.json.JSONObject
@@ -47,22 +44,36 @@ class LoginActivity : AppCompatActivity() {
                 successListener = { jsonResponse ->
                     LoadingDialog.hide()
                     if (jsonResponse["status"] == "success") {
+                        val sharedPreferenceManager = SharedPreferenceManager.getInstance(this)
                         val apiKey = jsonResponse["api_key"] as String
-                        SharedPreferenceManager.getInstance(this).saveAPIKey(apiKey)
+                        sharedPreferenceManager.saveAPIKey(apiKey)
+                        val userJsonObject = jsonResponse["user"] as JSONObject
+                        val user = User(
+                            id = userJsonObject.getInt("id"),
+                            name = userJsonObject.getString("name"),
+                            email = userJsonObject.getString("email"),
+                            phone = userJsonObject.getString("phone")
+                        )
+                        sharedPreferenceManager.saveUser(user)
                         navigateToMainActivity()
                     } else {
-                        Toast.makeText(mContext, "Error: ${jsonResponse["message"]}", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            mContext,
+                            "Error: ${jsonResponse["message"]}",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 },
                 errorListener = { error ->
                     LoadingDialog.hide()
-                    Toast.makeText(mContext, "Error: ${error["message"]}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(mContext, "Error: ${error["message"]}", Toast.LENGTH_SHORT)
+                        .show()
                 }
             )
         }
     }
 
-     private fun navigateToMainActivity() {
+    private fun navigateToMainActivity() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()

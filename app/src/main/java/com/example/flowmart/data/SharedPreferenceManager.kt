@@ -2,6 +2,7 @@ package com.example.flowmart.data
 
 import android.annotation.SuppressLint
 import android.content.Context
+import com.example.flowmart.data.models.User
 
 /**
  * @Author: Angatia Benson
@@ -37,6 +38,23 @@ class SharedPreferenceManager private constructor(context: Context) {
 
     fun getAPIKey(): String? {
         return sharedPreferences.getString("api_key", "N/A")
+    }
+
+    fun saveUser(user: User) {
+        editor.putInt("id", user.id)
+        editor.putString("name", user.name)
+        editor.putString("email", user.email)
+        editor.putString("phone", user.phone)
+        editor.apply()
+    }
+
+    fun getUser(): User {
+        return User(
+            id = sharedPreferences.getInt("id", 0),
+            name = sharedPreferences.getString("name", "N/A")!!,
+            email = sharedPreferences.getString("email", "N/A")!!,
+            phone = sharedPreferences.getString("phone", "N/A")!!
+        )
     }
 
     fun isLoggedIn(): Boolean {
