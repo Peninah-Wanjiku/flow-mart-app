@@ -47,7 +47,7 @@ dependencies {
     implementation(libs.converter.moshi)
     implementation(libs.moshi)
     implementation(libs.moshi.kotlin)
-
+    implementation (libs.android.volley)
 
 
     implementation(libs.androidx.core.ktx)

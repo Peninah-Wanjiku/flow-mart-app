@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.flowmart.api.APIClient
 import com.example.flowmart.databinding.ActivityCategorisedProductsBinding
 
 class CategorisedProductsActivity : AppCompatActivity() {
@@ -18,6 +19,9 @@ class CategorisedProductsActivity : AppCompatActivity() {
         binding = ActivityCategorisedProductsBinding.inflate(layoutInflater)
         setContentView(binding.root)
         mContext = this
+
+        val apiClient = APIClient.getInstance(this)
+       // apiClient.post()
 
         binding.floatingActionBar.setOnClickListener {
             startActivity(Intent(mContext, CreateCategoryActivity::class.java))
