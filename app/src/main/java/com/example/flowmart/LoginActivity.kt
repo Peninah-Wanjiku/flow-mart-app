@@ -9,8 +9,11 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.flowmart.api.APIClient
+import com.example.flowmart.data.SharedPreferenceManager
+import com.example.flowmart.data.api.APIClient
 import com.example.flowmart.databinding.ActivityLoginBinding
+import com.example.flowmart.utils.LoadingDialog
+import org.json.JSONObject
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -22,28 +25,40 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
         mContext = this
 
-        val sharedPreferences = getSharedPreferences("userPrefs", Context.MODE_PRIVATE)
+        binding.txtSignUp.setOnClickListener {
+            val intent = Intent(this, SignUpActivity::class.java)
+            startActivity(intent)
+        }
 
         binding.loginButton.setOnClickListener {
-            val enteredEmail = binding.phoneEmailInput.text.toString()
-            val enteredPhone = binding.phoneEmailInput.text.toString()
-            val enteredPassword = binding.passwordInput.text.toString()
+            val email = binding.phoneEmailInput.text.toString()
+            val password = binding.passwordInput.text.toString()
 
-            val savedPhone = sharedPreferences.getString("phone", null)
-            val savedEmail = sharedPreferences.getString("email", null)
-            val savedPassword = sharedPreferences.getString("password", null)
+            val apiClient = APIClient.getInstance(this)
+            val jsonRequest = JSONObject()
+            jsonRequest.put("email", email)
+            jsonRequest.put("password", password)
 
-            if (enteredEmail == savedEmail || enteredPhone == savedPhone) {
-                if (enteredPassword == savedPassword) {
-                    val editor = sharedPreferences.edit()
-                    editor.putBoolean("isLoggedIn", true)
-                    editor.apply()
+            LoadingDialog.show(this, "Logging in...")
 
-                    navigateToMainActivity()
+            apiClient.post(
+                endpoint = "login",
+                requestBody = jsonRequest,
+                successListener = { jsonResponse ->
+                    LoadingDialog.hide()
+                    if (jsonResponse["status"] == "success") {
+                        val apiKey = jsonResponse["api_key"] as String
+                        SharedPreferenceManager.getInstance(this).saveAPIKey(apiKey)
+                        navigateToMainActivity()
+                    } else {
+                        Toast.makeText(mContext, "Error: ${jsonResponse["message"]}", Toast.LENGTH_SHORT).show()
+                    }
+                },
+                errorListener = { error ->
+                    LoadingDialog.hide()
+                    Toast.makeText(mContext, "Error: ${error["message"]}", Toast.LENGTH_SHORT).show()
                 }
-            } else {
-                Toast.makeText(mContext, "Invalid credentials", Toast.LENGTH_SHORT).show()
-            }
+            )
         }
     }
 

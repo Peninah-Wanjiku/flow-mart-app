@@ -10,6 +10,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.flowmart.data.SharedPreferenceManager
 import com.example.flowmart.databinding.ActivitySplashScreenBinding
 
 class SplashScreenActivity : AppCompatActivity() {
@@ -29,13 +30,12 @@ class SplashScreenActivity : AppCompatActivity() {
     }
 
     private fun checkLoginStatus() {
-        val sharedPreferences: SharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
-        val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
+        val isLoggedIn = SharedPreferenceManager.getInstance(this).isLoggedIn()
 
         if (isLoggedIn) {
             startActivity(Intent(this, MainActivity::class.java))
         } else {
-            startActivity(Intent(this, SignUpActivity::class.java))
+            startActivity(Intent(this, LoginActivity::class.java))
         }
         finish()
     }
