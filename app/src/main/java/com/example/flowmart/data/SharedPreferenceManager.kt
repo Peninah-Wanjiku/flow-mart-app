@@ -60,4 +60,6 @@ class SharedPreferenceManager private constructor(context: Context) {
     fun isLoggedIn(): Boolean {
         return getAPIKey() != "N/A"
     }
+
+
 }

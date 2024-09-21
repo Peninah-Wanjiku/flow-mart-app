@@ -1,4 +1,4 @@
 package com.example.flowmart.adapters
 
-class ChipCategoriesAdapter {
+class CategoryAdapter {
 }

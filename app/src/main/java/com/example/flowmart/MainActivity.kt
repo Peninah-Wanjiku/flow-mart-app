@@ -7,8 +7,10 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.example.flowmart.data.SharedPreferenceManager
+import com.example.flowmart.data.api.APIClient
 import com.example.flowmart.data.models.User
 import com.example.flowmart.databinding.ActivityMainBinding
+import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -31,23 +33,33 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(mContext, CreateItemActivity::class.java))
         }
 
-    }
+        binding.recyclerviewChips.setOnClickListener {
+            val chip = binding.recyclerviewChips.id
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.main_activity_menu, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.profile -> startActivity(Intent(mContext, EditProfileActivity::class.java))
-            R.id.create_category -> startActivity(
-                Intent(
-                    mContext,
-                    CategorisedProductsActivity::class.java
-                )
-            )
+            val apiClient = APIClient.getInstance(this)
+            val jsonRequest = JSONObject()
+            jsonRequest.put("category_id", chip)
         }
-        return super.onOptionsItemSelected(item)
+        binding.recyclerviewItems.setOnClickListener {
+
+        }
     }
+
+        override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+            menuInflater.inflate(R.menu.main_activity_menu, menu)
+            return super.onCreateOptionsMenu(menu)
+        }
+
+        override fun onOptionsItemSelected(item: MenuItem): Boolean {
+            when (item.itemId) {
+                R.id.profile -> startActivity(Intent(mContext, EditProfileActivity::class.java))
+                R.id.create_category -> startActivity(
+                    Intent(
+                        mContext,
+                        CategorisedProductsActivity::class.java
+                    )
+                )
+            }
+            return super.onOptionsItemSelected(item)
+        }
 }
