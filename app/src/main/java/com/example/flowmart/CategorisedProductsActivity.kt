@@ -1,5 +1,6 @@
 package com.example.flowmart
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -36,6 +37,7 @@ class CategorisedProductsActivity : AppCompatActivity() {
         fetchCategories()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun fetchCategories() {
         binding.progressIndicator.visibility = View.VISIBLE
         binding.recyclerviewCategory.visibility = View.GONE
