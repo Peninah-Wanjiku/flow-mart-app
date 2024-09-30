@@ -48,17 +48,15 @@ class CreateCategoryActivity : AppCompatActivity() {
                         Toast.makeText(this, "Category added successfully", Toast.LENGTH_SHORT).show()
                         finish()
                     } else {
-                        Toast.makeText(
-                            mContext,
-                            "Error: ${jsonResponse["message"]}",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        Toast.makeText(mContext,"Error: ${jsonResponse["message"]}", Toast.LENGTH_SHORT).show()
                     }
                 },
                 errorListener = { error ->
                     Toast.makeText(mContext, "Error: ${error["message"]}", Toast.LENGTH_SHORT)
                         .show()
                 })
+            }else{
+                Toast.makeText(mContext, "Category name is required", Toast.LENGTH_SHORT).show()
 
         }
     }
