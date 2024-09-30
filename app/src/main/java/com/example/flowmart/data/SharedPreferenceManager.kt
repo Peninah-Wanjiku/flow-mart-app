@@ -61,5 +61,8 @@ class SharedPreferenceManager private constructor(context: Context) {
         return getAPIKey() != "N/A"
     }
 
-
+    fun clear() {
+        editor.clear()
+        editor.apply()
+    }
 }

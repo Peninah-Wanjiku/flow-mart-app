@@ -1,8 +1,8 @@
 package com.example.flowmart.data.api
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
-import android.util.Log
 import com.android.volley.AuthFailureError
 import com.android.volley.Request
 import com.android.volley.RequestQueue
@@ -10,6 +10,7 @@ import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.flowmart.data.SharedPreferenceManager
+import com.example.flowmart.utils.DialogUtil
 import org.json.JSONObject
 
 /**
@@ -20,6 +21,7 @@ import org.json.JSONObject
 
 class APIClient private constructor(private val context: Context) {
     private val baseUrl = "https://flowmart.banit.co.ke/"
+
     /**
      * Companion object to ensure a single instance of the APIClient
      */
@@ -30,7 +32,7 @@ class APIClient private constructor(private val context: Context) {
 
         fun getInstance(context: Context): APIClient {
             return INSTANCE ?: synchronized(this) {
-                INSTANCE ?: APIClient(context.applicationContext).also { INSTANCE = it }
+                INSTANCE ?: APIClient(context).also { INSTANCE = it }
             }
         }
     }
@@ -64,8 +66,16 @@ class APIClient private constructor(private val context: Context) {
                 successListener(response)
             },
             Response.ErrorListener { error ->
-                val responseBody = String(error.networkResponse.data, Charsets.UTF_8) // Convert response data to string
-                val errorJson = JSONObject(responseBody) // Parse string to JSONObject
+                val responseBody = String(error.networkResponse.data, Charsets.UTF_8)
+                val errorJson = JSONObject(responseBody)
+                if (errorJson.getInt("code") == 401) {
+                    if (context is Activity) {
+                        context.runOnUiThread {
+                            DialogUtil.showLoginResetDialog(context)
+                        }
+                        return@ErrorListener
+                    }
+                }
                 errorListener(errorJson)
             }
         ) {
@@ -77,7 +87,6 @@ class APIClient private constructor(private val context: Context) {
                 mHeaders["Authorization"] = authorizationHeaderValue
                 mHeaders["Content-Type"] = "application/json"
 
-                Log.d("Headers", mHeaders.toString())
                 return mHeaders;
             }
         }
