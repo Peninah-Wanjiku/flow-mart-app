@@ -5,8 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateItemActivity"
-    android:padding="10dp">
+    android:padding="10dp"
+    tools:context=".CreateItemActivity">
 
     <TextView
         android:id="@+id/text"
@@ -16,67 +16,81 @@
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/item.name.layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="4dp"
         android:layout_marginTop="24dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:elevation="4dp"
         app:boxStrokeWidth="1dp"
+        app:layout_constraintBottom_toTopOf="@id/item.quantity.layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text"
-        app:layout_constraintBottom_toTopOf="@id/item.quantity.layout">
+        app:layout_constraintTop_toBottomOf="@id/text">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/item.name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="name"
-            android:padding="10dp"/>
+            android:padding="10dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/item.quantity.layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="4dp"
         android:layout_marginTop="20dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:elevation="4dp"
         app:boxStrokeWidth="1dp"
+        app:layout_constraintBottom_toTopOf="@id/category.spinner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/item.name.layout"
-        app:layout_constraintBottom_toTopOf="@id/category.spinner">
+        app:layout_constraintTop_toBottomOf="@id/item.name.layout">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/item.quantity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Quantity"
-            android:padding="10dp"/>
+            android:padding="10dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Spinner
         android:id="@+id/category.spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="12dp"
         android:layout_marginTop="24dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:padding="12dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/item.quantity.layout"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/item.quantity.layout" />
+
+    <TextView
+        android:id="@+id/txt.loading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:padding="12dp"
+        android:text="Loading..."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/item.quantity.layout" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/save.item.button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
         android:padding="8dp"
         android:text="SAVE"
-        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
