@@ -14,6 +14,7 @@ class CreateItemActivity : AppCompatActivity() {
     private  lateinit var binding: ActivityCreateItemBinding
     private lateinit var mContext: Context
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCreateItemBinding.inflate(layoutInflater)
