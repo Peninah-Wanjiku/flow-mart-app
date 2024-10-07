@@ -77,14 +77,6 @@
             app:layout_constraintTop_toBottomOf="@id/name.welcome"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chipGroupCategories"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:singleSelection="true"
-            app:chipSpacing="8dp"
-            app:layout_constraintTop_toBottomOf="@id/name.welcome"
-            tools:ignore="MissingConstraints" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview.items"
