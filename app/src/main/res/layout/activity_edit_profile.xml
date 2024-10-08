@@ -17,6 +17,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progress.indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/primaryDarkColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
         android:id="@+id/profile.photo"
         android:layout_width="wrap_content"
@@ -40,12 +51,14 @@
         android:layout_marginTop="20dp"
         android:focusable="true"
         android:clickable="true"
+        android:focusableInTouchMode="true"
         android:inputType="text"
         android:textAppearance="?textAppearanceBody1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/profile.photo"
         app:layout_constraintBottom_toTopOf="@id/email.text"/>
+
 
     <TextView
         android:id="@+id/email.text"
@@ -56,39 +69,46 @@
         android:inputType="textEmailAddress"
         android:textAppearance="?textAppearanceBody1"
         android:layout_marginTop="20dp"
+        android:focusable="true"
+        android:clickable="true"
+        android:focusableInTouchMode="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/name.text"
-        app:layout_constraintBottom_toTopOf="@id/phone.layout"/>
+        app:layout_constraintBottom_toTopOf="@id/phone.text"/>
 
     <TextView
-        android:id="@+id/phone.layout"
+        android:id="@+id/phone.text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Phone"
         android:padding="12dp"
         android:layout_marginTop="20dp"
         android:inputType="number"
+        android:focusable="true"
+        android:clickable="true"
+        android:focusableInTouchMode="true"
         android:textAppearance="?textAppearanceBody1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/email.text"
-        app:layout_constraintBottom_toTopOf="@id/password.layout"/>
+        app:layout_constraintBottom_toTopOf="@id/password.text"/>
 
     <TextView
-        android:id="@+id/password.layout"
+        android:id="@+id/password.text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:hint="Password"
         android:focusable="true"
         android:clickable="true"
+        android:focusableInTouchMode="true"
         android:padding="12dp"
         android:layout_marginTop="12dp"
         android:textAppearance="?textAppearanceBody1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/phone.layout"/>
+        app:layout_constraintTop_toBottomOf="@id/phone.text"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/save.profile.button"
