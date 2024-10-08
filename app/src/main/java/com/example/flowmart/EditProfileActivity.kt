@@ -37,6 +37,7 @@ class EditProfileActivity : AppCompatActivity() {
         }
 
     }
+
     private fun fetchUserDetails(){
         binding.progressIndicator.visibility = View.VISIBLE
         binding.main.visibility = View.GONE
